@@ -1,0 +1,12 @@
+local player = game.Players.LocalPlayer
+local shooter = game.Players:GetPlayers():find(function(v) return v ~= player and v.Character and v.Character:FindFirstChildOfClass("Humanoid") and v.Character:FindFirstChildOfClass("Humanoid").Health > 0 and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart").Position and game.Workspace:FindPartOnRay(Ray.new(player.Character.Head.Position, (v.Character.HumanoidRootPart.Position - player.Character.Head.Position).unit * 300), player.Character, false, true) end)
+if shooter then
+    getgenv().Settings.Silent.AimPart, getgenv().Settings.Silent.Mode = "Head", "Namecall"
+    local NotificationGui, NotificationFrame, NotificationText = Instance.new("ScreenGui"), Instance.new("Frame"), Instance.new("TextLabel")
+    NotificationGui.Parent, NotificationFrame.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui"), NotificationGui
+    NotificationFrame.BackgroundColor3, NotificationFrame.BackgroundTransparency, NotificationFrame.Position, NotificationFrame.Size = Color3.fromRGB(255, 255, 255), 0.5, UDim2.new(0.5, -100, 0.9, -50), UDim2.new(0, 200, 0, 100)
+    NotificationText.Parent, NotificationText.BackgroundColor3, NotificationText.BackgroundTransparency, NotificationText.Size, NotificationText.Font, NotificationText.Text, NotificationText.TextColor3, NotificationText.TextScaled = NotificationFrame, Color3.fromRGB(255, 255, 255), 1.0, UDim2.new(1, 0, 1, 0), Enum.Font.SourceSansBold, "", Color3.fromRGB(255, 0, 0), true
+    NotificationText.Text = shooter.Name .. " nos está disparando!"
+    wait(5)
+    NotificationGui:Destroy()
+end
